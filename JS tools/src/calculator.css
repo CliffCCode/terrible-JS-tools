@@ -1,0 +1,28 @@
+.calculator {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-color: whitesmoke;
+}
+
+.calculatorButton {
+  padding: 1rem;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  min-height: 100%;
+}
+
+.calculatorDisplay {
+  grid-column: span 4;
+  padding: 1rem;
+  font-size: 2rem;
+  font-family: monospace;
+  text-align: right;
+  color: black;
+  background-color: #eee;
+  border-radius: 8px;
+}
