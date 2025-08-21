@@ -9,18 +9,26 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
-.calculatorButton {
+button{
   padding: 1rem;
   font-size: 1.5rem;
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.1s ease-out;
+}
+
+button:hover {
+  background-color: #333;
+}
+
+.calculatorButton {
   min-height: 100%;
 }
 
 .Display {
   grid-column: span 4;
-  padding: 1rem;
+  padding: .5rem;
   font-size: 2rem;
   font-family: monospace;
   text-align: right;
@@ -29,12 +37,11 @@
   border-radius: 8px;
 }
 
+.Display.muted {
+  color: #000000a0;
+}
+
 .submitButton {
   grid-column: span 4;
   margin-top: .5rem;
-  padding: 1rem;
-  font-size: 1.5rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
 }
