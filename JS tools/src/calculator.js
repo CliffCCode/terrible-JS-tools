@@ -1,46 +1,130 @@
 import './style.css'
 
-let firstNumber = 2;
-let secondNumber = 3;
+let firstNumber = 0;
+let secondNumber = 0;
 let operation = '+'
 let result = null;
+
+window.onload = () => {
+    machine.dispatchEvent('clear');
+}
+
+// TODO: Remove 2nd display
+const machine = {
+  state: "RESET",
+  transitions: {
+    RESET: {
+      clear: function() {
+        console.log("Clearing calculator...");
+        firstNumber = 0;
+        secondNumber = 0;
+        operation = '+';
+        result = null;
+        this.changeState('FIRST');
+        document.querySelector('#input').className = 'Display'
+        updateInputDisplay();
+      },
+    },
+    FIRST: {
+      handleNumberInput: handleNumberInput,
+      setOperation: setOperation,
+      reset: reset,
+      calculate: calculate,
+
+    },
+    OPERATION: {
+      reset: reset,
+      calculate: calculate,
+    },
+    SECOND: {
+      handleNumberInput: handleNumberInput,
+      setOperation: setOperation,
+      reset: reset,
+      calculate: calculate,
+    },
+    RESULT: {
+      handleNumberInput: handleNumberInput,
+      calculate: calculate,
+      reset: reset,
+    },
+  },
+
+  dispatchEvent(actionName, ...payload) {
+    // const actions = this.transitions[this.state];
+    const action = this.transitions[this.state][actionName];
+
+    if (action) {
+      action.apply(machine, ...payload);
+    } else {
+      // No action found for this event in the current state
+      console.log(`No action for event ${actionName} in state ${this.state}`);
+    }
+  },
+  changeState(newState) {
+    this.state = newState;
+    console.log(`State changed to: ${this.state}`);
+  }
+};
+
+// Number button press
+function handleNumberInput(num,) {
+  if (this.state === 'FIRST') {
+      firstNumber = parseInt(`${firstNumber}${num}`);
+  } else if (this.state === 'SECOND') {
+      secondNumber = parseInt(`${secondNumber}${num}`);
+  } else if (this.state === 'RESULT') {
+    machine.dispatchEvent('reset');
+    firstNumber = parseInt(`${firstNumber}${num}`);
+  }
+  updateInputDisplay();
+}
 
 // update input area 
 function updateInputDisplay() {
     document.querySelector('#input').innerHTML = `${firstNumber} ${operation} ${secondNumber}`
-    document.querySelector('#input').className = 'Display'
+    
 }
 
 function setOperation(op) {
   operation = op; // e.g. "+" when the user clicks the plus button
-    updateInputDisplay();
+  updateInputDisplay();
+  this.changeState('SECOND');
 }
 
-// Listener for calculator operations
-document.querySelectorAll('.calculatorButton').forEach(button => {
+function reset() {
+  this.changeState('RESET');
+  machine.dispatchEvent('clear');
+}
+
+
+// Input handling
+// Number inputs
+document.querySelectorAll('.number').forEach(button => {
+  button.addEventListener('click', () => {
+    const value = button.innerHTML; // Get the id of the button clicked
+    machine.dispatchEvent('handleNumberInput', [value]);
+  });
+});
+
+// operator inputs
+document.querySelectorAll('.operator').forEach(button => {
   button.addEventListener('click', () => {
     const value = button.id; // Get the id of the button clicked
-    if (['+', '-', '*', '/'].includes(value)) {
-      setOperation(value);
-    } else if (!isNaN(value) || value === '.') {
-      // If it's a number or a decimal point, update the display
-      document.querySelector('#input').innerHTML += value;
-    }
-    return;
+    console.log("Operator input:", value);
+    machine.dispatchEvent('setOperation', [value]);
   });
+});
+
+// equals input
+document.querySelector('.submitButton').addEventListener('click', () => {
+  machine.dispatchEvent('calculate');
 });
 
 // Clear inputs
 document.querySelector('#clear').addEventListener('click', () => {
-    firstNumber = 0;
-    secondNumber = 0;
-    operation = '+';
-    result = null;
-    document.querySelector('#input').innerHTML = '';
-    document.querySelector('#output').innerHTML = '';
-    document.querySelector('#input').className = 'Display muted';
-})
-
+  machine.dispatchEvent('reset');
+  machine.dispatchEvent('clear');
+});
 
 // Function to handle the calculation logic
 function calculate() {
@@ -63,17 +147,8 @@ function calculate() {
       result = firstNumber / secondNumber;
       break;
   }
-
-  console.log("Result:", result);
+  updateInputDisplay();
+  document.querySelector('#output').innerHTML = `= ${result}`;
+  document.querySelector('#input').className = 'Display muted';
+  this.changeState('RESULT');
 }
-
-
-// Click event for submit
-document.querySelector('.submitButton').addEventListener('click', () => {
-    calculate();
-    
-    // Update the display area
-    updateInputDisplay();
-    document.querySelector('#output').innerHTML = `= ${result}`
-    document.querySelector('#input').className = 'Display muted'
-})

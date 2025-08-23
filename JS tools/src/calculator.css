@@ -45,3 +45,8 @@ button:hover {
   grid-column: span 4;
   margin-top: .5rem;
 }
+
+.number {
+  color: #ddd;
+  font-weight: bold;
+}
