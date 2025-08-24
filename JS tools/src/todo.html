@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="css/todo.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo app</title>
+  </head>
+
+
+<body>
+    <div>
+      <div>
+        <a href="../index.html">Back</a>
+        <h1>Todo List</h1>
+      </div>
+        
+      <div>
+        <input type="text" id="new-todo" placeholder="New todo" />
+        <button id="add-todo">Add</button>
+        
+        <ul id="todo-list">
+            <!-- Todo items will be dynamically added here -->
+          <li>Sample task</li>
+          <li>Another task</li>
+          <li>Yet another task</li>
+        </ul>
+      </div>
+      
+      <div>
+        <hr />
+        <p>Total tasks:
+        <span id="total-tasks">{totalTasks}</span>
+        </p>
+        <p> Completed tasks:
+        <span id="completed-tasks">thing</span>
+        </p>
+      </div>
+
+    </div>
+
+    <script type="module" src="js/todo.js"></script>
+    </script>
+</body>
