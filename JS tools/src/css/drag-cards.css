@@ -1,0 +1,20 @@
+.container {
+    padding: 12px;
+    border-radius: 8px;
+    background-color: #222;
+    width: 320px;
+    margin-bottom: 1rem;
+    gap: 8px;
+}
+
+.draggable {
+    padding: 8px;
+    border-radius: 4px;
+    background-color: #333;
+    transition-property: background-color;
+    transition-duration: 200ms;
+}
+
+.draggable:hover {
+    background-color: #444;
+}

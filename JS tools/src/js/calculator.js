@@ -1,4 +1,3 @@
-import './style.css'
 
 let firstNumber = 0;
 let secondNumber = 0;
@@ -126,6 +125,8 @@ document.querySelector('#clear').addEventListener('click', () => {
   machine.dispatchEvent('clear');
 });
 
+//TODO: add backspace functionality
+
 // Function to handle the calculation logic
 function calculate() {
   if (operation === null || firstNumber === null || secondNumber === null) {
@@ -152,3 +153,4 @@ function calculate() {
   document.querySelector('#input').className = 'Display muted';
   this.changeState('RESULT');
 }
+
