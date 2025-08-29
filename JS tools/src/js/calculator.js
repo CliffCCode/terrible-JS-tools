@@ -1,5 +1,3 @@
-import './style.css'
-
 let firstNumber = 0;
 let secondNumber = 0;
 let operation = '+'
