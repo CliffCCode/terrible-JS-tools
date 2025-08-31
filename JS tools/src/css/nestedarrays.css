@@ -1,0 +1,23 @@
+.card {
+    padding: 12px;
+    border-radius: 8px;
+    background-color: #222;
+    margin-bottom: 1rem;
+    gap: 8px;
+
+}
+
+.row {
+    padding: 12px;
+    border: black;
+    flex: auto;
+    flex-direction: column;
+    display: flex;
+}
+
+.nest {
+    flex: auto;
+    flex-direction: row;
+    width: 320px;
+    display: flex;
+}
