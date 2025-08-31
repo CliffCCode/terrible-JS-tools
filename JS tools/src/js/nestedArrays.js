@@ -35,3 +35,6 @@ function printGrid(grid) {
 window.onload = function() {
   printGrid(gridMatrix);
 };
+
+//TODO: create a matrix creator, where I can insert X and Y and get a nicely made grid
+// This might already be handled in vanilla JS
